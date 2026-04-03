@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webサイト表示速度チェッカー</title>
+  <meta name="description" content="自動でPageSpeed Insightsを計測し、モバイルとPCで比較">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-left">
+        <h1>サイト表示速度チェッカー</h1>
+        <p class="header-sub">PageSpeed Insights API連携</p>
+      </div>
+      <div class="header-actions">
+        <button id="theme-toggle" class="icon-btn">🌙</button>
+      </div>
+    </header>
+
+    <div class="url-input-section">
+      <form id="speed-form" class="speed-form">
+        <input type="url" id="target-url" placeholder="https://example.com" required>
+        <button type="submit" id="analyze-btn" class="primary-btn">
+          <span class="btn-text">計測する</span>
+          <span class="btn-loading" style="display:none;">計測中... (約10〜30秒)</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- 結果エリア -->
+    <div id="result-section" class="result-section" style="display:none;">
+      <div class="result-url-display">
+        <span id="current-url">https://example.com</span>
+      </div>
+
+      <div class="scores-grid">
+        <!-- モバイル -->
+        <div class="score-card mobile-card">
+          <div class="device-icon">📱 モバイル</div>
+          <div class="score-circle" id="mobile-circle">
+            <svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="45"></circle>
+              <circle class="progress" id="mobile-progress" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="score-text" id="mobile-score">0</div>
+          </div>
+          
+          <div class="vitals-list">
+            <div class="vital-item">
+              <span>LCP (最大コンテンツ)</span>
+              <strong id="mobile-lcp">-</strong>
+            </div>
+            <div class="vital-item">
+              <span>FID (初回入力)</span>
+              <strong id="mobile-fid">-</strong>
+            </div>
+            <div class="vital-item">
+              <span>CLS (レイアウトずれ)</span>
+              <strong id="mobile-cls">-</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- デスクトップ -->
+        <div class="score-card desktop-card">
+          <div class="device-icon">💻 デスクトップ</div>
+          <div class="score-circle" id="desktop-circle">
+            <svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="45"></circle>
+              <circle class="progress" id="desktop-progress" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="score-text" id="desktop-score">0</div>
+          </div>
+          
+          <div class="vitals-list">
+            <div class="vital-item">
+              <span>LCP (最大コンテンツ)</span>
+              <strong id="desktop-lcp">-</strong>
+            </div>
+            <div class="vital-item">
+              <span>FID (初回入力)</span>
+              <strong id="desktop-fid">-</strong>
+            </div>
+            <div class="vital-item">
+              <span>CLS (レイアウトずれ)</span>
+              <strong id="desktop-cls">-</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opportunities-section">
+        <h3>💡 改善の提案 (Oportunities)</h3>
+        <p class="opportunities-sub">ページの読み込み速度をさらに改善できるポイントです。</p>
+        <div id="opp-list" class="opp-list"></div>
+      </div>
+    </div>
+
+    <!-- 履歴 -->
+    <div class="history-section">
+      <h3>最近の計測履歴</h3>
+      <div id="history-list" class="history-list"></div>
+      <div id="history-empty" class="empty-state" style="display:none;">履歴はありません</div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
