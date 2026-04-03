@@ -22,7 +22,9 @@ async function handleAnalyze(e) {
   const urlEl = document.getElementById('target-url');
   let targetUrl = urlEl.value.trim();
   if(!targetUrl) return;
-  if(!targetUrl.startsWith('http')) targetUrl = 'https://' + targetUrl;
+  if(!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+    targetUrl = 'https://' + targetUrl;
+  }
   
   urlEl.value = targetUrl;
   
@@ -32,10 +34,9 @@ async function handleAnalyze(e) {
   btn.querySelector('.btn-loading').style.display = 'inline';
   
   try {
-    const [mobileRes, desktopRes] = await Promise.all([
-      fetchPSI(targetUrl, 'mobile'),
-      fetchPSI(targetUrl, 'desktop')
-    ]);
+    // 注: APIキーなしの場合、並列実行するとRate Limit (HTTP 429) エラーになりやすいため直列実行に変更
+    const mobileRes = await fetchPSI(targetUrl, 'mobile');
+    const desktopRes = await fetchPSI(targetUrl, 'desktop');
     
     const result = {
       id: Date.now().toString(),
