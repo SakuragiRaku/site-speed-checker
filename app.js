@@ -57,7 +57,15 @@ async function handleAnalyze(e) {
     
   } catch(err) {
     if (err.message.includes('429')) {
-      alert('【アクセス制限のお知らせ】\nGoogleの無料API枠の制限（1分間あたりの連続アクセス）に引っかかりました。約1〜2分ほど時間をおいてから再度計測をお試しください！');
+      alert('【アクセス制限のお知らせ】\nGoogle APIの無料枠制限（回線状況による共有制限を含む）にかかっているため、UI動作確認用の「疑似データ（デモ結果）」を表示します！');
+      
+      const dummyResult = generateDummyData(targetUrl);
+      state.history.unshift(dummyResult);
+      if(state.history.length > 20) state.history.pop();
+      saveState();
+      
+      renderResult(dummyResult);
+      renderHistory();
     } else {
       alert('測定に失敗しました。URLが正しいか確認してください。\nエラー: ' + err.message);
     }
@@ -92,6 +100,7 @@ function parsePSIResult(data) {
 }
 
 function extractOpportunities(data) {
+  if (data.isDummy) return data.dummyOpportunities; // デモデータ用
   const audits = data.lighthouseResult?.audits || {};
   const opps = [];
   
@@ -112,7 +121,7 @@ function extractOpportunities(data) {
 
 function renderResult(res) {
   document.getElementById('result-section').style.display = 'block';
-  document.getElementById('current-url').textContent = res.url;
+  document.getElementById('current-url').textContent = res.isDummy ? `${res.url} (※デモ表示)` : res.url;
   
   updateScoreCard('mobile', res.mobile);
   updateScoreCard('desktop', res.desktop);
@@ -188,6 +197,7 @@ window.loadHistory = function(id) {
 };
 
 function formatDesc(md) {
+  if (!md) return '';
   // PageSpeedのマークダウンリンクを簡易的に除去
   return md.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
 }
@@ -195,6 +205,36 @@ function formatDesc(md) {
 function formatDate(iso) {
   const d = new Date(iso);
   return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+// 429エラー時のUI表示用ダミーデータ生成器
+function generateDummyData(url) {
+  const mScore = Math.floor(Math.random() * 40) + 40; // 40~79
+  const dScore = Math.floor(Math.random() * 30) + 65; // 65~94
+  
+  return {
+    id: Date.now().toString(),
+    url: url,
+    date: new Date().toISOString(),
+    isDummy: true,
+    mobile: {
+      score: mScore,
+      lcp: (2.5 + Math.random() * 2).toFixed(1) + ' s',
+      fid: Math.floor(Math.random() * 100) + ' ms',
+      cls: (Math.random() * 0.2).toFixed(3)
+    },
+    desktop: {
+      score: dScore,
+      lcp: (1.0 + Math.random() * 1.5).toFixed(1) + ' s',
+      fid: Math.floor(Math.random() * 50) + ' ms',
+      cls: (Math.random() * 0.1).toFixed(3)
+    },
+    opportunities: [
+      { title: '次世代フォーマットでの画像の配信', saving: '最大 1.20秒 削減可能', desc: 'WebP などの画像フォーマットは PNG や JPEG より圧縮率が高く、ダウンロード時間が短縮されます。' },
+      { title: 'レンダリングを妨げるリソースの除外', saving: '最大 0.85秒 削減可能', desc: 'ページの初回ペイントをブロックしているリソースがあります。重要な JS/CSS はインライン化し、それ以外は遅延読み込みを検討してください。' },
+      { title: '使用していない JavaScript の削減', saving: '最大 0.60秒 削減可能', desc: '使用していない JavaScript を削減し、スクリプトが必要になるまで読み込みを遅延させると、ネットワーク通信量を減らすことができます。' }
+    ]
+  };
 }
 
 document.addEventListener('DOMContentLoaded', init);
