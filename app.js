@@ -34,8 +34,9 @@ async function handleAnalyze(e) {
   btn.querySelector('.btn-loading').style.display = 'inline';
   
   try {
-    // 注: APIキーなしの場合、並列実行するとRate Limit (HTTP 429) エラーになりやすいため直列実行に変更
+    // 注: APIキーなしの場合、並列実行するとRate Limit (HTTP 429) エラーになりやすいため直列実行に変更し、意図的に数秒のウェイトを入れる
     const mobileRes = await fetchPSI(targetUrl, 'mobile');
+    await new Promise(resolve => setTimeout(resolve, 2000)); // 2秒待機して制限回避
     const desktopRes = await fetchPSI(targetUrl, 'desktop');
     
     const result = {
@@ -55,7 +56,11 @@ async function handleAnalyze(e) {
     renderHistory();
     
   } catch(err) {
-    alert('測定に失敗しました。URLが正しいか確認してください。\nエラー: ' + err.message);
+    if (err.message.includes('429')) {
+      alert('【アクセス制限のお知らせ】\nGoogleの無料API枠の制限（1分間あたりの連続アクセス）に引っかかりました。約1〜2分ほど時間をおいてから再度計測をお試しください！');
+    } else {
+      alert('測定に失敗しました。URLが正しいか確認してください。\nエラー: ' + err.message);
+    }
   } finally {
     btn.disabled = false;
     btn.querySelector('.btn-text').style.display = 'inline';
