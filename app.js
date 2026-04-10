@@ -91,7 +91,7 @@ async function handleAnalyze(e) {
 
 async function fetchPSI(url, strategy) {
   const apiKey = (typeof PSI_API_KEY !== 'undefined' && PSI_API_KEY !== 'YOUR_API_KEY_HERE') ? PSI_API_KEY : '';
-  const endpoint = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}&key=${apiKey}`;
+  const endpoint = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}&locale=ja&key=${apiKey}`;
   const res = await fetch(endpoint);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return await res.json();
