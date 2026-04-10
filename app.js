@@ -76,7 +76,7 @@ async function handleAnalyze(e) {
     if (err.message.includes('429')) {
       showToast('⚠️ APIのレート制限に達しました。1〜2分待ってから再試行してください。', 'warning', 8000);
     } else if (err.message.includes('400')) {
-      showToast('❌ URLが正しくないか、アクセスできないサイトです。URLを確認してください。', 'error', 6000);
+      showToast('❌ このサイトはGoogleのクローラーでアクセスできません（Cloudflare保護・robots.txt拒否等の可能性）。', 'error', 6000);
     } else if (err.message.includes('403')) {
       showToast('❌ APIキーが無効か、PageSpeed Insights APIが有効になっていません。Google Cloud Consoleを確認してください。', 'error', 8000);
     } else {
