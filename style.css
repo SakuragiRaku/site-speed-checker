@@ -77,31 +77,21 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .toast-success{background:#10b981;color:#fff}
 @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
-/* Metrics Guide */
-.metrics-guide{border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-secondary);margin-top:24px;overflow:hidden}
-.metrics-guide summary{padding:16px 20px;font-size:.95rem;font-weight:600;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;color:var(--text-secondary);transition:color var(--transition)}
-.metrics-guide summary::-webkit-details-marker{display:none}
-.metrics-guide summary::after{content:'›';margin-left:auto;font-size:1.2rem;transition:transform var(--transition)}
-.metrics-guide[open] summary::after{transform:rotate(90deg)}
-.metrics-guide summary:hover{color:var(--text-primary)}
-.metrics-guide-content{padding:0 20px 20px;display:flex;flex-direction:column;gap:20px}
-.guide-block h4{font-size:.9rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
-.score-badges{display:flex;gap:8px;flex-wrap:wrap}
-.badge{padding:6px 14px;border-radius:20px;font-size:.85rem;font-weight:700}
-.badge.good{background:rgba(16,185,129,.15);color:var(--score-good)}
-.badge.avg{background:rgba(245,158,11,.15);color:var(--score-avg)}
-.badge.poor{background:rgba(239,68,68,.15);color:var(--score-poor)}
-.guide-table{display:flex;flex-direction:column;gap:12px}
-.guide-row{display:grid;grid-template-columns:100px 1fr;gap:12px;align-items:start;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm)}
-.guide-label{font-size:1rem;font-weight:800;color:var(--accent);display:flex;flex-direction:column;gap:2px}
-.guide-full{font-size:.65rem;font-weight:400;color:var(--text-tertiary);line-height:1.3}
-.guide-desc{font-size:.85rem;color:var(--text-secondary);line-height:1.7}
-.guide-thresholds{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-.guide-thresholds span{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:4px}
-.guide-thresholds .good{background:rgba(16,185,129,.15);color:var(--score-good)}
-.guide-thresholds .avg{background:rgba(245,158,11,.15);color:var(--score-avg)}
-.guide-thresholds .poor{background:rgba(239,68,68,.15);color:var(--score-poor)}
-.guide-accuracy{background:var(--bg-tertiary);padding:16px;border-radius:var(--radius-sm)}
-.guide-accuracy ul{padding-left:20px;display:flex;flex-direction:column;gap:8px}
-.guide-accuracy li{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
-@media(max-width:640px){.guide-row{grid-template-columns:1fr}.guide-label{flex-direction:row;align-items:baseline;gap:6px}}
+/* Metrics Section */
+.metrics-section { margin-top: 24px; padding: 24px; }
+.metrics-content { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.metrics-heading { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-top: 12px; margin-bottom: 2px; }
+.metrics-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.6; }
+.metrics-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.85rem; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 8px; }
+.metrics-table th { background: var(--bg-tertiary); color: var(--text-secondary); padding: 10px 12px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+.metrics-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-primary); background: var(--bg-secondary); }
+.metrics-table tr:last-child td { border-bottom: none; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.dot.good { background-color: var(--score-good); }
+.dot.avg { background-color: var(--score-avg); }
+.dot.poor { background-color: var(--score-poor); }
+.metrics-divider { border: 0; height: 1px; background: var(--border); margin: 8px 0; }
+.metrics-list { padding-left: 20px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.6; }
+.metrics-conclusion { background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-top: 12px; }
+.metrics-conclusion strong { color: var(--text-primary); }
+.mt-3 { margin-top: 12px; }

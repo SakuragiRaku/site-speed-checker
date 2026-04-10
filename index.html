@@ -108,70 +108,83 @@
     </div>
 
     <!-- 指標の説明 -->
-    <details class="metrics-guide">
-      <summary>📖 指標の説明と精度について</summary>
-      <div class="metrics-guide-content">
+    <div class="opportunities-section metrics-section" style="margin-top:24px;">
+      <h3>📖 各指標の意味と精度の見方</h3>
+      <p class="opportunities-sub">計測される数値の詳細と、データの信頼性についての説明です。</p>
+      
+      <div class="metrics-content">
+        <h4 class="metrics-heading">スコア（中央の数字）</h4>
+        <table class="metrics-table">
+          <thead>
+            <tr><th>スコア</th><th>評価</th><th>色</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>90〜100</td><td>良好</td><td><span class="dot good"></span> 緑</td></tr>
+            <tr><td>50〜89</td><td>要改善</td><td><span class="dot avg"></span> オレンジ</td></tr>
+            <tr><td>0〜49</td><td>低速</td><td><span class="dot poor"></span> 赤</td></tr>
+          </tbody>
+        </table>
 
-        <div class="guide-block">
-          <h4>スコアの見方</h4>
-          <div class="score-badges">
-            <span class="badge good">90〜100 良好</span>
-            <span class="badge avg">50〜89 要改善</span>
-            <span class="badge poor">0〜49 低速</span>
-          </div>
-        </div>
+        <h4 class="metrics-heading">LCP (Largest Contentful Paint) ＝ 最大コンテンツ描画</h4>
+        <p class="metrics-desc">ページを開いてから、一番大きい要素（画像・見出し等）が表示されるまでの時間。</p>
+        <table class="metrics-table">
+          <thead>
+            <tr><th>良好</th><th>要改善</th><th>低速</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2.5秒以内</td><td>4秒以内</td><td>4秒超</td></tr>
+          </tbody>
+        </table>
 
-        <div class="guide-block">
-          <h4>各指標の意味</h4>
-          <div class="guide-table">
-            <div class="guide-row">
-              <div class="guide-label">LCP<span class="guide-full">Largest Contentful Paint</span></div>
-              <div class="guide-desc">
-                ページを開いてから、最も大きいコンテンツ（画像・見出し等）が表示されるまでの時間。
-                <div class="guide-thresholds">
-                  <span class="good">2.5秒以内：良好</span>
-                  <span class="avg">4秒以内：要改善</span>
-                  <span class="poor">4秒超：低速</span>
-                </div>
-              </div>
-            </div>
-            <div class="guide-row">
-              <div class="guide-label">FID<span class="guide-full">First Input Delay</span></div>
-              <div class="guide-desc">
-                ユーザーが最初にクリック・タップしてから、ページが反応するまでの遅延時間。※Lighthouseでは実測の代わりにTBT（合計ブロック時間）で近似計算。
-                <div class="guide-thresholds">
-                  <span class="good">100ms以内：良好</span>
-                  <span class="avg">300ms以内：要改善</span>
-                  <span class="poor">300ms超：低速</span>
-                </div>
-              </div>
-            </div>
-            <div class="guide-row">
-              <div class="guide-label">CLS<span class="guide-full">Cumulative Layout Shift</span></div>
-              <div class="guide-desc">
-                ページ読み込み中に、要素がどれだけズレ動くかの累積スコア。広告や遅延読み込み画像で高くなりやすい。
-                <div class="guide-thresholds">
-                  <span class="good">0.1以下：良好</span>
-                  <span class="avg">0.25以下：要改善</span>
-                  <span class="poor">0.25超：低速</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h4 class="metrics-heading">FID (First Input Delay) ＝ 初回入力遅延</h4>
+        <p class="metrics-desc">ユーザーが最初にクリック・タップしてから、ページが反応するまでの時間。</p>
+        <table class="metrics-table">
+          <thead>
+            <tr><th>良好</th><th>要改善</th><th>低速</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>100ms以内</td><td>300ms以内</td><td>300ms超</td></tr>
+          </tbody>
+        </table>
 
-        <div class="guide-block guide-accuracy">
-          <h4>⚠️ 数値の精度について</h4>
-          <ul>
-            <li>データはGoogleの公式 <strong>Lighthouse</strong> エンジンによる計測値です（PageSpeed InsightsのWebサイトと同じ）。</li>
-            <li>サーバーの負荷状況により、同じサイトでも毎回 <strong>±10〜20点</strong> 程度ブレることがあります。</li>
-            <li>モバイルは実機ではなく、Googleが設定した<strong>低速スマホの模擬環境</strong>で計測されます。</li>
-            <li>絶対的な数値より、<strong>スコアの色（緑・黄・赤）と改善提案の内容</strong>を参考にするのが正しい使い方です。</li>
-          </ul>
+        <h4 class="metrics-heading">CLS (Cumulative Layout Shift) ＝ レイアウトずれ</h4>
+        <p class="metrics-desc">ページ読み込み中に要素がどれだけズレ動くかの指標。広告や画像の遅延読み込みでよく起きる。</p>
+        <table class="metrics-table">
+          <thead>
+            <tr><th>良好</th><th>要改善</th><th>低速</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0.1以下</td><td>0.25以下</td><td>0.25超</td></tr>
+          </tbody>
+        </table>
+
+        <hr class="metrics-divider">
+
+        <h4 class="metrics-heading">⚠️ 数値の精度について</h4>
+        <p class="metrics-desc">大枠は正確です。ただしいくつか注意点があります。</p>
+        <ul class="metrics-list">
+          <li>データはGoogleの <strong>Lighthouse</strong> エンジンが計測（PageSpeed InsightsのWebサイトと同じ数値）</li>
+          <li>スコアが高い・低いという傾向は正確</li>
+          <li>GoogleのSEO評価にも使われている公式指標</li>
+        </ul>
+        
+        <table class="metrics-table mt-3">
+          <thead>
+            <tr><th>ブレる要因</th><th>影響</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>計測タイミング</td><td>サーバーの負荷状況によって毎回±10〜20点ズレることがある</td></tr>
+            <tr><td>ネットワーク環境</td><td>Googleのサーバー〜対象サイト間の混雑状況による</td></tr>
+            <tr><td>モバイル環境</td><td>実機ではなくGoogleが「低速スマホ」を想定した模擬環境で計測</td></tr>
+          </tbody>
+        </table>
+
+        <div class="metrics-conclusion">
+          <strong>結論：</strong> 「絶対的な数値」より「スコアの色（緑・黄・赤）」と「改善の提案」を参考にするのが正しい使い方です。複数回計測して平均を見るとより信頼性が上がります。
         </div>
 
       </div>
-    </details>
+    </div>
 
 
   </div>
